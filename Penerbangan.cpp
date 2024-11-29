@@ -93,3 +93,14 @@ bool findRelasi(List_Relation Rt, adr_rutePenerbangan P, adr_Maskapai Q) {
     cout << "Relasi tidak ditemukan." << endl;
     return false;
 }
+void showMaskapai(List_Maskapai Lm){
+    adr_Maskapai P;
+    P = Lm.first;
+    while(P != NULL){
+        cout << "Nama Maskapai: " << P -> infoMaskapai.namaMaskapai << endl;
+        cout << "Kode Maskapai: " << P -> infoMaskapai.kodeMaskapai << endl;
+        cout << "Jenis Kelas Maskapai: " << P -> infoMaskapai.kelasMaskapai << endl;
+        cout << "Kapasitas Penumpang: " <<  P -> infoMaskapai.kapasitasPenumpang << endl;
+        P = P -> next;
+    }
+}
