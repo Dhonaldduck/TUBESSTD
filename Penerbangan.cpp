@@ -69,7 +69,6 @@ void insertRelasi(List_Relation &Rt, adr_relasi P) {
     if (P != NULL) {
            P->next = Rt.first;
            Rt.first = P;
-           cout << "Relasi berhasil ditambahkan di awal list." << endl;
        } else {
            cout << "Elemen yang dimasukkan adalah NULL." << endl;
        }
