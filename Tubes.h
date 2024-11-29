@@ -62,6 +62,7 @@ void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
 void deleteRute(List_Rute &LR, adr_Rute p);
 void deleteRelation(List_Relation &Rt, adr_relasi P)
 string findMaskapai(List_Maskapai Lm, string kode);
+adr_Rute findRute(List_Rute LR, infotypeRute x);
 bool findRelasi(List_Relation RT, adr_rutePenerbangan P, adr_Maskapai Q);
 void showMaskapai(List_Maskapai Lm);
 void printInfoRute(List_Rute LR);
