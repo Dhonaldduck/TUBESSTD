@@ -7,8 +7,16 @@ void createListMaskapai(List_Maskapai &Lm){
     Lm.last = NULL;
 }
 
+void createListRute(List_Rute &LR){
+    LR.first = NULL;
+}
+
 void createListRelation(List_Relation &Rt){
     Rt.first = NULL;
+}
+
+bool isEmptyRute(List_Rute LR){
+    return LR.first == NULL;
 }
 
 adr_Maskapai createElmMaskapai(infotype x){
@@ -17,6 +25,13 @@ adr_Maskapai createElmMaskapai(infotype x){
     P -> next = NULL;
     P -> prev = NULL;
     return P;
+}
+
+adr_Rute newElementRute(infotypeRute x){
+    adr_Rute p = new elm_Rute;
+    p->infoRute = x;
+    p->next = NULL;
+    return p;
 }
 
 adr_relasi newElementRelation(infotype x){
@@ -34,6 +49,19 @@ void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P){
     }else{
         Lm.first = P;
         Lm.last = P;
+    }
+}
+
+void addRute(List_Rute &LR, adr_Rute p){
+    adr_Rute Q;
+    if(isEmptyRute(LR)){
+        LR.first = p;
+    }else{
+        Q = LR.first;
+        while(Q->next != NULL){
+            Q = Q->next;
+        }
+        Q->next = p;
     }
 }
 
@@ -56,6 +84,18 @@ void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P){
     }else{
         Lm.first = NULL;
         Lm.last = NULL;
+    }
+}
+
+void deleteRute(List_Rute &LR, adr_Rute p){
+    if(isEmptyRute(LR)){
+        LR.first = NULL;
+    }else if(LR.first->next == LR.first){
+        LR.first = NULL;
+    }else{
+        p = LR.first;
+        LR.first = p->next;
+        p->next = NULL;
     }
 }
 
@@ -104,3 +144,26 @@ void showMaskapai(List_Maskapai Lm){
         P = P -> next;
     }
 }
+
+void printInfoRute(List_Rute LR){
+    adr_Rute p;
+    if(isEmptyRute(LR)){
+        cout << "Data Kosong" << endl;
+    }else{
+       p = LR.first;
+       while(p->next != LR.first){
+        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
+            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
+            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
+            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
+            p = p->next;
+       }
+        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
+            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
+            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
+            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
+    }
+    cout << endl;
+}
+
+
