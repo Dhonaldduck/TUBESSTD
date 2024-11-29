@@ -36,3 +36,4 @@ void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
 void deleteRelation(List_Relation &Rt, adr_relasi P)
 string findMaskapai(List_Maskapai Lm, string kode);
 bool findRelasi(List_Relation RT, adr_rutePenerbangan P, adr_Maskapai Q);
+void showMaskapai(List_Maskapai Lm);
