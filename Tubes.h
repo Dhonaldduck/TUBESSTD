@@ -7,6 +7,12 @@ struct elm_Maskapai{
     adr_Maskapai next;
     adr_Maskapai prev;
 };
+
+struct elm_Relation {
+    infotype infoRelation;
+    adr_relasi next;
+};
+
 struct infotype_Maskapai{
     string namaMaskapai;
     string kodeMaskapai;
