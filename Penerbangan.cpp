@@ -121,6 +121,17 @@ string findMaskapai(List_Maskapai Lm, string kode){
     }
 }
 
+adr_Rute findRute(List_Rute LR, infotypeRute x){
+    adr_Rute p;
+    p = LR.first;
+    while(p != NULL){
+            if(p->infoRute.kode_penerbangan == x){
+                return p;
+            }
+            p = p->next;
+       }
+    return NULL;
+}
 bool findRelasi(List_Relation Rt, adr_rutePenerbangan P, adr_Maskapai Q) {
     adr_relasi temp = Rt.first;
     while (temp != nullptr) {
