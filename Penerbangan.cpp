@@ -201,3 +201,28 @@ void showRelations(List_Relation Rt) {
     }
 }
 
+void countRelationMaskapai(List_Relasi &L, adr_Maskapai P) {
+    int count = 0;
+    adr_relasi temp = L.first;
+
+    while (temp != nullptr) {
+        if (temp->parent == P) { 
+            count++;
+        }
+        temp = temp->next;
+    }
+    cout << "Jumlah relasi yang dimiliki oleh Maskapai " << P->infoMaskapai.namaMaskapai << " : " << count << endl;
+}
+
+void countRelationRute(List_Relasi &L, adr_Rute P) {
+    int count = 0;
+    adr_relasi temp = L.first;
+
+    while (temp != nullptr) {
+        if (temp->child == P) {  
+            count++;
+        }
+        temp = temp->next;
+    }
+    cout << "Jumlah relasi yang dimiliki oleh Rute " << P->infoRute.kode_penerbangan << " : " << count << endl;
+}
