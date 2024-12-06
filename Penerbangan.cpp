@@ -218,7 +218,7 @@ void countRelationRute(List_Relasi &Rt, adr_Rute P) {
     int count = 0;
     adr_relasi temp = Rt.first;
 
-    while (temp != nullptr) {
+    while (temp != NULL) {
         if (temp->child == P) {  
             count++;
         }
