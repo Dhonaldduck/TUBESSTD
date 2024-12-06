@@ -70,5 +70,7 @@ adr_relasi findRelation(List_Relation Rt, adr_Maskapai parent, adr_Rute child);
 void showMaskapai(List_Maskapai Lm);
 void printInfoRute(List_Rute LR);
 void showRelations(List_Relation Rt);
+void countRelationMaskapai(List_Relasi &Rt, adr_Maskapai P);
+void countRelationChild(List_Relasi &Rt, adr_Rute P);
 
 #endif /* Header_h */
