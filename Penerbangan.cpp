@@ -1,6 +1,7 @@
 #include <iostream>
-#include "Tubes.h"
 using namespace std;
+#include "Tubes.h"
+
 
 void createListMaskapai(List_Maskapai &Lm){
     Lm.first = NULL;
@@ -19,7 +20,7 @@ bool isEmptyRute(List_Rute LR){
     return LR.first == NULL;
 }
 
-adr_Maskapai createElmMaskapai(infotype x){
+adr_Maskapai createElmMaskapai(infotype_Maskapai x){
     adr_Maskapai P = new elm_Maskapai;
     P -> infoMaskapai = x;
     P -> next = NULL;
@@ -34,11 +35,12 @@ adr_Rute newElementRute(infotypeRute x){
     return p;
 }
 
-adr_relasi newElementRelation(infotype x){
-    adr_relasi p = new elm_Relation;
-    p->infoRelation = x;
-    p->next = NULL;
-    return p;
+adr_relasi createElmRelation(adr_Maskapai parent, adr_Rute child){
+    adr_relasi P = new elm_Relation;
+    P->parent = parent;
+    P->child = child;
+    P->next = NULL;
+    return P;
 }
 
 void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P){
@@ -65,14 +67,18 @@ void addRute(List_Rute &LR, adr_Rute p){
     }
 }
 
-void insertRelasi(List_Relation &Rt, adr_relasi P) {
-    if (P != NULL) {
-           P->next = Rt.first;
-           Rt.first = P;
-       } else {
-           cout << "Elemen yang dimasukkan adalah NULL." << endl;
-       }
-   }
+void insertRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child) {
+    adr_relasi P = createElmRelation(parent, child);
+    if (Rt.first == NULL) {
+        Rt.first = P;
+    } else {
+        adr_relasi temp = Rt.first;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = P;
+    }
+}
 
 void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P){
     P = Lm.last;
@@ -98,14 +104,22 @@ void deleteRute(List_Rute &LR, adr_Rute p){
     }
 }
 
-void deleteRelation(List_Relation &RT, adr_relasi P){
-    if (RT.first != nullptr) {
-        P = RT.first;
-        RT.first = RT.first->next;
-        P->next = nullptr;
-        cout << "Relasi pertama telah dihapus." << endl;
-    } else {
-        cout << "List Relasi kosong, tidak ada yang dapat dihapus." << endl;
+void deleteRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child) {
+    if (Rt.first != NULL) {
+        adr_relasi temp = Rt.first;
+        adr_relasi prev = NULL;
+        while (temp != NULL && (temp->parent != parent || temp->child != child)) {
+            prev = temp;
+            temp = temp->next;
+        }
+        if (temp != NULL) {
+            if (prev == NULL) {
+                Rt.first = temp->next;
+            } else {
+                prev->next = temp->next;
+            }
+            delete temp;
+        }
     }
 }
 
@@ -131,18 +145,18 @@ adr_Rute findRute(List_Rute LR, infotypeRute x){
        }
     return NULL;
 }
-bool findRelasi(List_Relation Rt, adr_rutePenerbangan P, adr_Maskapai Q) {
+
+adr_relasi findRelation(List_Relation Rt, adr_Maskapai parent, adr_Rute child) {
     adr_relasi temp = Rt.first;
-    while (temp != nullptr) {
-        if (temp->rutePenerbangan == P && temp->adr_Maskapai == Q) {
-            cout << "Relasi ditemukan antara Rute Penerbangan dan Maskapai." << endl;
-            return true;
+    while (temp != NULL) {
+        if (temp->parent == parent && temp->child == child) {
+            return temp;
         }
         temp = temp->next;
     }
-    cout << "Relasi tidak ditemukan." << endl;
-    return false;
+    return NULL;
 }
+
 void showMaskapai(List_Maskapai Lm){
     adr_Maskapai P;
     P = Lm.first;
@@ -176,4 +190,14 @@ void printInfoRute(List_Rute LR){
     cout << endl;
 }
 
+void showRelations(List_Relation Rt) {
+    adr_relasi temp = Rt.first;
+    while (temp != NULL) {
+        cout << "Maskapai: " << temp->parent->infoMaskapai.namaMaskapai
+             << " | Rute: " << temp->child->infoRute.kode_penerbangan
+             << " | Asal: " << temp->child->infoRute.kota_asal
+             << " | Tujuan: " << temp->child->infoRute.kota_tujuan << endl;
+        temp = temp->next;
+    }
+}
 
