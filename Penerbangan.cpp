@@ -201,11 +201,11 @@ void showRelations(List_Relation Rt) {
     }
 }
 
-void countRelationMaskapai(List_Relasi &L, adr_Maskapai P) {
+void countRelationMaskapai(List_Relasi &Rt, adr_Maskapai P) {
     int count = 0;
-    adr_relasi temp = L.first;
+    adr_relasi temp = Rt.first;
 
-    while (temp != nullptr) {
+    while (temp != NULL) {
         if (temp->parent == P) { 
             count++;
         }
@@ -214,9 +214,9 @@ void countRelationMaskapai(List_Relasi &L, adr_Maskapai P) {
     cout << "Jumlah relasi yang dimiliki oleh Maskapai " << P->infoMaskapai.namaMaskapai << " : " << count << endl;
 }
 
-void countRelationRute(List_Relasi &L, adr_Rute P) {
+void countRelationRute(List_Relasi &Rt, adr_Rute P) {
     int count = 0;
-    adr_relasi temp = L.first;
+    adr_relasi temp = Rt.first;
 
     while (temp != nullptr) {
         if (temp->child == P) {  
