@@ -9,8 +9,8 @@ typedef struct elm_Rute *adr_Rute;
 typedef struct elm_Relation* adr_relasi;
 
 struct elm_Maskapai{
-    infotype infoMaskapai;
-    adr_Relasi pRelasi;
+    infotypeMaskapai infoMaskapai;
+    adr_relasi pRelasi;
     adr_Maskapai next;
     adr_Maskapai prev;
 };
@@ -19,12 +19,11 @@ struct elm_Rute {
     adr_Rute next;
 };
 struct elm_Relation {
-    adr_Maskapai parent;
     adr_Rute child;
     adr_relasi next;
 };
 
-struct infotype_Maskapai{
+struct infoMaskapai{
     string namaMaskapai;
     string kodeMaskapai;
     string kelasMaskapai;
@@ -45,36 +44,26 @@ struct List_Maskapai{
 struct List_Rute{
     adr_Rute first;
 };
-struct List_Relation{
-    adr_relasi first;
-};
-
+typedef infoMaskapai infotypeMaskapai;
 typedef rutePenerbangan infotypeRute;
 
 void createListMaskapai(List_Maskapai &Lm);
 void createListRute(List_Rute &LR);
-void createListRelation(List_Relation &Rt);
 bool isEmptyRute(List_Rute LR);
-adr_Maskapai createElmMaskapai(infotype x);
+adr_Maskapai createElmMaskapai(infotypeMaskapai x);
 adr_Rute newElementRute(infotypeRute x);
 adr_relasi createElmRelation(adr_Maskapai parent, adr_Rute child);
 void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P);
 void addRute(List_Rute &LR, adr_Rute p);
-void insertRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child);
+void insertRelation(adr_Maskapai P, adr_Rute child);
 void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
-void delete_First(List_Rute &LR, adr_Rute p);
-void delete_After(List_Rute &LR, adr_Rute p, adr_Rute prec);
-void delete_Last(List_Rute &LR, adr_Rute p);
-void delete_Rute(List_Rute &LR, string kode);
-void deleteRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child);
-string findMaskapai(List_Maskapai Lm, string kode);
+void deleteRute(List_Rute &LR, adr_Rute p);
+void deleteRelation( adr_Maskapai P, adr_Rute child);
+adr_Maskapai findMaskapai(List_Maskapai Lm, string kode);
 adr_Rute findRute(List_Rute LR, infotypeRute x);
-adr_relasi findRelation(List_Relation Rt, adr_Maskapai parent, adr_Rute child);
+adr_relasi findRelation(adr_Maskapai P, adr_Rute child);
 void showMaskapai(List_Maskapai Lm);
 void printInfoRute(List_Rute LR);
-void showRelations(List_Relation Rt);
-void countRelationMaskapai(List_Relasi &Rt, adr_Maskapai P);
-void countRelationChild(List_Relasi &Rt, adr_Rute P);
-void edit_Maskapai(List_Relation &RT, adr_Maskapai m, adr_Rute p);
-
+void show_RutefromMaskapai(adr_Maskapai p, List_Maskapai Lm);
+void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai P);
 #endif /* Header_h */
