@@ -54,7 +54,7 @@ void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P){
     }
 }
 
-void addRute(List_Rute &LR, adr_Rute p){
+void adrRute(List_Rute &LR, adr_Rute p){
     adr_Rute Q;
     if(isEmptyRute(LR)){
         LR.first = p;
@@ -91,9 +91,8 @@ void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P){
         Lm.last = NULL;
     }
 }
-
-void deleteRute(List_Rute &LR, adr_Rute p){
-    if(isEmptyRute(LR)){
+void delete_First(List_Rute &LR, adr_Rute p){
+    if(LR.first == NULL){
         LR.first = NULL;
     }else if(LR.first->next == LR.first){
         LR.first = NULL;
@@ -103,6 +102,44 @@ void deleteRute(List_Rute &LR, adr_Rute p){
         p->next = NULL;
     }
 }
+void delete_After(List_Rute &LR, adr_Rute p, adr_Rute prec){
+    if(LR.first == NULL){
+        LR.first = NULL;
+    }else if(LR.first->next == LR.first){
+        LR.first == NULL;
+    }else{
+        p = prec->next;
+        prec->next = p->next;
+        p->next = NULL;
+    }
+}
+void delete_Last(List_Rute &LR, adr_Rute p){
+    if(LR.first == NULL){
+        LR.first = NULL;
+    }else if(LR.first->next == LR.first){
+        LR.first == NULL;
+    }else{
+        adr_Rute Q = LR.first;
+        while(Q->next != NULL){
+            Q = Q->next;
+        }
+        p = Q->next;
+        Q->next = NULL;
+    }
+}
+void delete_Rute(List_Rute &LR, adr_Rute p){
+    adr_Rute prec;
+    if(LR.first == NULL){
+         cout << "Data kosong" << endl;
+    }else if(p == LR.first){
+         delete_First(LR, p);
+    }else if(p->next == NULL){
+         delete_Last(LR, p);
+    }else{
+         delete_After(LR, p, prec);
+    }
+}
+
 
 void deleteRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child) {
     if (Rt.first != NULL) {
