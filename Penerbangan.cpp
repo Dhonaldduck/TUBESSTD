@@ -206,25 +206,20 @@ void showMaskapai(List_Maskapai Lm){
     }
 }
 
-void printInfoRute(List_Rute LR){
+void showAll_Rute(List_Rute LR){
     adr_Rute p;
-    if(isEmptyRute(LR)){
+    if(LR.first == NULL){
         cout << "Data Kosong" << endl;
     }else{
        p = LR.first;
-       while(p->next != LR.first){
-        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
-            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
-            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
-            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
+       while(p != NULL){
+            cout << "Kota asal: " << p->infoRute.kota_asal << endl;
+            cout << "Kota tujuan: " << p->infoRute.kota_tujuan << endl;
+            cout << "Kode penerbangan: " << p->infoRute.kode_penerbangan << endl;
+            cout << "Jumlah penumpang: " << p->infoRute.jumlah_penumpang << endl;
             p = p->next;
        }
-        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
-            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
-            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
-            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
     }
-    cout << endl;
 }
 
 void showRelations(List_Relation Rt) {
@@ -236,6 +231,54 @@ void showRelations(List_Relation Rt) {
              << " | Tujuan: " << temp->child->infoRute.kota_tujuan << endl;
         temp = temp->next;
     }
+}
+
+void showRute_FromMaskapai(List_Relation &RT, adr_Maskapai m){
+    adr_relasi r = RT.first;
+    while(r != NULL){
+        if(r->parent == m){
+            cout << "Rute: " << endl;
+            cout << "Kota asal: " << r->child->infoRute.kota_asal << endl;
+            cout << "Kota tujuan: " << r->child->infoRute.kota_tujuan << endl;
+            cout << "Kode penerbangan: " << r->child->infoRute.kode_penerbangan << endl;
+            cout << "Jumlah penumpang: " << r->child->infoRute.jumlah_penumpang << endl;
+        }
+        r = r->next;
+    }
+}
+
+void showAll_Data(List_Maskapai LM, List_Rute LR){
+    adr_Maskapai m = LM.first;
+    while(m != NULL){
+        cout << "Maskapai: " << endl;
+        cout << "Nama maskapai: " << m->info.namaMaskapai << endl;
+        cout << "Kode Masakapai: " << m->info.kodeMaskapai << endl;
+        cout << "Kelas penerbangan: " << m->info.kelasMaskapai << endl;
+        cout << "Kapasitas penumpang: " << m->info.kapasitasPenumpang << endl;
+        m = m->next;
+    }
+    cout << "\nRute Penerbangan:\n" << endl;
+    showAll_Rute(LR);
+}
+
+int count_RuteDontHaveRelasi(List_Relation RT, List_Rute LR){
+    int count = 0;
+    adr_Rute p = LR.first;
+    while(p != NULL){
+        bool relasi = false;
+        adr_relasi Q = RT.first;
+        while(Q != NULL){
+            if(Q->child == p){
+                relasi = true;
+            }
+            Q = Q->next;
+        }
+        if(!relasi){
+            count++;
+        }
+     p = p->next;
+    }
+   return count;
 }
 
 void countRelationMaskapai(List_Relasi &Rt, adr_Maskapai P) {
@@ -262,4 +305,19 @@ void countRelationRute(List_Relasi &Rt, adr_Rute P) {
         temp = temp->next;
     }
     cout << "Jumlah relasi yang dimiliki oleh Rute " << P->infoRute.kode_penerbangan << " : " << count << endl;
+}
+
+void edit_Maskapai(List_Relation &RT, adr_Maskapai m, adr_Rute p){
+    if(m != NULL){
+        cout << "Edit Maskapai: " << m->info.namaMaskapai << endl;
+        cout << "Masukkan data baru:\n";
+        cout << "Nama Maskapai: ";
+        cin >> m->info.namaMaskapai;
+        cout << "Kode Maskapai: ";
+        cin >> m->info.kodeMaskapai;
+        cout << "Kelas Maskapai: ";
+        cin >> m->info.kelasMaskapai;
+        cout << "Kapasitas Penumpang: ";
+        cin >> m->info.kapasitasPenumpang;
+    }
 }
