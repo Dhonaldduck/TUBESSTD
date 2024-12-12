@@ -62,7 +62,10 @@ void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P);
 void addRute(List_Rute &LR, adr_Rute p);
 void insertRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child);
 void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
-void deleteRute(List_Rute &LR, adr_Rute p);
+void delete_First(List_Rute &LR, adr_Rute p);
+void delete_After(List_Rute &LR, adr_Rute p, adr_Rute prec);
+void delete_Last(List_Rute &LR, adr_Rute p);
+void delete_Rute(List_Rute &LR, string kode);
 void deleteRelation(List_Relation &Rt, adr_Maskapai parent, adr_Rute child);
 string findMaskapai(List_Maskapai Lm, string kode);
 adr_Rute findRute(List_Rute LR, infotypeRute x);
@@ -72,5 +75,6 @@ void printInfoRute(List_Rute LR);
 void showRelations(List_Relation Rt);
 void countRelationMaskapai(List_Relasi &Rt, adr_Maskapai P);
 void countRelationChild(List_Relasi &Rt, adr_Rute P);
+void edit_Maskapai(List_Relation &RT, adr_Maskapai m, adr_Rute p);
 
 #endif /* Header_h */
