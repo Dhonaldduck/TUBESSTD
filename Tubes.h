@@ -49,7 +49,6 @@ typedef rutePenerbangan infotypeRute;
 
 void createListMaskapai(List_Maskapai &Lm);
 void createListRute(List_Rute &LR);
-bool isEmptyRute(List_Rute LR);
 adr_Maskapai createElmMaskapai(infotypeMaskapai x);
 adr_Rute newElementRute(infotypeRute x);
 adr_relasi createElmRelation(adr_Maskapai parent, adr_Rute child);
