@@ -270,5 +270,27 @@ int count_RuteDontHaveRelasi(List_Maskapai LM, List_Rute LR){
     }
     return count;
 }
+void edit_RuteFromMaskapai(List_Maskapai LM, List_Rute LR, string kodeMaskapai, string kodeRute){
+    adr_Maskapai m;
+    adr_Rute p;
+    cin >> kodeMaskapai;
+    m = findMaskpai(LM, kodeMaskapai);
+    adr_relasi r = m->pRelasi;
+    while(r != NULL){
+        cin >> kodeRute;
+        p = find_Rute(LR, kodeRute);
+            cout << "Masukkan rute baru: " << endl;
+            cout << "Kota asal: ";
+            cin >> r->child->infoRute.kota_asal;
+            cout << "Kota tujuan: ";
+            cin >> r->child->infoRute.kota_tujuan;
+            cout << "Kode penerbangan: ";
+            cin >> r->child->infoRute.kode_penerbangan;
+            cout << "Jumlah penumpang: ";
+            cin >> r->child->infoRute.jumlah_penumpang;
+         r = r->next;
+    }
+    cout << endl;
+}
 
    
