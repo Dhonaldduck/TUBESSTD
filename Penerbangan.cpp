@@ -247,6 +247,36 @@ void show_AllData(List_Maskapai LM, List_Rute LR){
     cout << "Rute Penerbangan: " << endl;
     showRute(LR);
 }
+
+void countRelationMaskapai(List_Maskapai LM, adr_Maskapai P) {
+    int count = 0;
+    adr_relasi relasi = P->pRelasi; 
+    while (relasi != NULL) {
+        count++; 
+        relasi = relasi->next; 
+    }
+    cout << "Jumlah relasi Maskapai " << P->infoMaskapai.namaMaskapai 
+         << " dengan rute penerbangan adalah: " << count << endl;
+}
+
+void countRelationRute(List_Maskapai LM, adr_Rute P) {
+    int count = 0;
+    adr_Maskapai maskapai = LM.first; 
+    while (maskapai != NULL) {
+        adr_relasi relasi = maskapai->pRelasi; 
+        while (relasi != NULL) {
+            if (relasi->child == P) { 
+                count++; 
+                break; 
+            }
+            relasi = relasi->next; 
+        }
+        maskapai = maskapai->next;
+    }
+    cout << "Jumlah Maskapai yang memiliki relasi dengan rute " << P->infoRute.kode_penerbangan 
+         << " adalah: " << count << endl;
+}
+
 int count_RuteDontHaveRelasi(List_Maskapai LM, List_Rute LR){
     int count = 0;
     adr_Rute p = LR.first;
