@@ -192,7 +192,7 @@ void showMaskapai(List_Maskapai Lm){
     }
 }
 
-void printInfoRute(List_Rute LR){
+void showRute(List_Rute LR){
     adr_Rute p;
     if(LR.first == NULL){
         cout << "Data Kosong" << endl;
@@ -213,9 +213,9 @@ void show_RutefromMaskapai(adr_Maskapai p){
     p = findMaskapai(Lm,kode);
     adr_relasi q = p -> pRelasi;
     while(q != NULL){
-        cout << "Rute" << q->child->infoRute.kode_penerbangan;
-        cout << "Asal" << q->child->infoRute.kota_asal;
-        cout << "Tujuan" << q->child->infoRute.kota_tujuan;
+        cout << "Kota asal" << q->child->infoRute.kota_asal;
+        cout << "Kota Tujuan" << q->child->infoRute.kota_tujuan;
+        cout << "Kode penerbangan" << q->child->infoRute.kode_penerbangan;
         cout << "Jumlah Penumpang" << q->child->infoRute.jumlah_penumpang;
         q = q ->next;
     }
@@ -233,3 +233,42 @@ void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai p){
         temp = temp -> next;
     }
 }
+
+void show_AllData(List_Maskapai LM, List_Rute LR){
+    adr_Maskapai m = LM.first;
+    while(m != NULL){
+        cout << "Maskapai Penerbangan: " << endl;
+        cout << "Nama Maskapai: " << m->infoMaskapai.namaMaskapai << endl;
+        cout << "Kode Maskapai: " << m->infoMaskapai.kodeMaskapai << endl;
+        cout << "Jenis Kelas Maskapai: " << m->infoMaskapai.kelasMaskapai << endl;
+        cout << "Kapasitas Penumpang: " <<  m->infoMaskapai.kapasitasPenumpang << endl;
+        m = m->next;
+    }
+    cout << "Rute Penerbangan: " << endl;
+    showRute(LR);
+}
+int count_RuteDontHaveRelasi(List_Maskapai LM, List_Rute LR){
+    int count = 0;
+    adr_Rute p = LR.first;
+    while(p != NULL){
+        bool relasi = false;
+        adr_Masakapai m = LM.first;
+        while(m != NULL){
+            adr_relasi r = pRelasi;
+            while(r != NULL){
+                if(r->child == p){
+                    relasi = true;
+                }
+                r = r->next;
+            }
+            m = m->next;
+        }
+        if(!relasi){
+            count++;
+        }
+        p = p->next;
+    }
+    return count;
+}
+
+   
