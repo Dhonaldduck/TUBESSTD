@@ -12,10 +12,6 @@ void createListRute(List_Rute &LR){
     LR.first = NULL;
 }
 
-bool isEmptyRute(List_Rute LR){
-    return LR.first == NULL;
-}
-
 adr_Maskapai createElmMaskapai(infotypeMaskapai x){
     adr_Maskapai P = new elm_Maskapai;
     P -> infoMaskapai = x;
@@ -87,15 +83,54 @@ void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P){
     }
 }
 
-void deleteRute(List_Rute &LR, adr_Rute p){
-    if(isEmptyRute(LR)){
-        LR.first = NULL;
+void deleteFirst(List_Rute &LR, adr_Rute p){
+    if(LR.first == NULL){
+        LR.first = NULL;   
     }else if(LR.first->next == LR.first){
         LR.first = NULL;
     }else{
         p = LR.first;
         LR.first = p->next;
         p->next = NULL;
+    }
+}
+void delete_After(List_Rute &LR, adr_Rute prec, adr_Rute p){
+    if(LR.first == NULL){
+        LR.first = NULL;
+    }else if(LR.first->next == LR.first){
+        LR.first == NULL;
+    }else{
+        p = prec->next;
+        prec->next = p->next;
+        p->next = NULL;
+    }
+}
+
+void delete_Last(List_Rute &LR, adr_Rute p){
+    if(LR.first == NULL){
+        LR.first = NULL;
+    }else if(LR.first->next == LR.first){
+        LR.first == NULL;
+    }else{
+        adr_Rute Q = LR.first;
+        while(Q->next != NULL){
+            Q = Q->next;
+        }
+        p = Q->next;
+        Q->next = NULL;
+    }
+}
+
+void delete_Rute(List_Rute &LR, adr_Rute p){
+    adr_Rute prec;
+    if(LR.first == NULL){
+         cout << "Data kosong" << endl;
+    }else if(p == LR.first){
+         delete_First(LR, p);
+    }else if(p->next == NULL){
+         delete_Last(LR, p);
+    }else{
+         delete_After(LR, prec, p);
     }
 }
 
@@ -159,25 +194,20 @@ void showMaskapai(List_Maskapai Lm){
 
 void printInfoRute(List_Rute LR){
     adr_Rute p;
-    if(isEmptyRute(LR)){
+    if(LR.first == NULL){
         cout << "Data Kosong" << endl;
     }else{
        p = LR.first;
-       while(p->next != LR.first){
-        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
-            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
-            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
-            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
+       while(p != NULL){
+            cout << "Kota asal: " << p->infoRute.kota_asal << endl;
+            cout << "Kota tujuan: " << p->infoRute.kota_tujuan << endl;
+            cout << "Kode penerbangan: " << p->infoRute.kode_penerbangan << endl;
+            cout << "Jumlah penumpang: " << p->infoRute.jumlah_penumpang << endl;
             p = p->next;
        }
-        cout << "Kota asal keberangkatan: "<< p->infoRute.kota_asal <<
-            ", Kota tujuan keberangkatan: "<< p->infoRute.kota_tujuan <<
-            ", Kode penerbangan: "<< p->infoRute.kode_penerbangan <<
-            ", Jumlah penumpang: "<< p->infoRute.jumlah_penumpang << endl;
     }
-    cout << endl;
 }
-void show_RutefromMaskapai(adr_Maskapai p, List_Maskapai Lm){
+void show_RutefromMaskapai(adr_Maskapai p){
     string kode;
     cin >> kode;
     p = findMaskapai(Lm,kode);
