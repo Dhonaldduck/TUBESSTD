@@ -67,5 +67,6 @@ void show_RutefromMaskapai(adr_Maskapai p, List_Maskapai Lm);
 void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai P);
 void show_AllData(List_Maskapai LM, List_Rute LR);
 int count_RuteDontHaveRelasi
+void edit_RuteFromMaskapai(List_Maskapai LM, List_Rute LR, string kodeMaskapai, string kodeRute);
 
 #endif /* Header_h */
