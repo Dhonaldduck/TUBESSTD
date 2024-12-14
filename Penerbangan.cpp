@@ -234,7 +234,7 @@ void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai p){
     }
 }
 
-void show_AllData(List_Maskapai LM, List_Rute LR){
+void show_MaskapaiAndRute(List_Maskapai LM, List_Rute LR){
     adr_Maskapai m = LM.first;
     while(m != NULL){
         cout << "Maskapai Penerbangan: " << endl;
