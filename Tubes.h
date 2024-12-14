@@ -58,6 +58,7 @@ void insertRelation(adr_Maskapai P, adr_Rute child);
 void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
 void deleteFirst(List_Rute &LR, adr_Rute p);
 void delete_After(List_Rute &LR, adr_Rute prec, adr_Rute p);
+void delete_Last(List_Rute &LR, adr_Rute p);
 void deleteRute(List_Rute &LR, adr_Rute p);
 void deleteRelation( adr_Maskapai P, adr_Rute child);
 adr_Maskapai findMaskapai(List_Maskapai Lm, string kode);
