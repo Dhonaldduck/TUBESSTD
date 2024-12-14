@@ -45,7 +45,7 @@ void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P){
     }
 }
 
-void addRute(List_Rute &LR, adr_Rute p){
+void insertRute(List_Rute &LR, adr_Rute p){
     adr_Rute Q;
     if(isEmptyRute(LR)){
         LR.first = p;
