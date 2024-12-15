@@ -47,7 +47,7 @@ void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P){
 
 void insertRute(List_Rute &LR, adr_Rute p){
     adr_Rute Q;
-    if(isEmptyRute(LR)){
+    if(LR.first == NULL){
         LR.first = p;
     }else{
         Q = LR.first;
@@ -157,7 +157,7 @@ adr_Maskapai findMaskapai(List_Maskapai Lm, string kode){
     }
 }
 
-adr_Rute findRute(List_Rute LR, infotypeRute x){
+adr_Rute findRute(List_Rute LR, string x){
     adr_Rute p;
     p = LR.first;
     while(p != NULL){
@@ -207,7 +207,7 @@ void showRute(List_Rute LR){
        }
     }
 }
-void show_RutefromMaskapai(adr_Maskapai p){
+void show_RutefromMaskapai(adr_Maskapai p, List_Maskapai Lm){
     string kode;
     cin >> kode;
     p = findMaskapai(Lm,kode);
@@ -234,18 +234,51 @@ void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai p){
     }
 }
 
-void show_MaskapaiAndRute(List_Maskapai LM, List_Rute LR){
+void show_MaskapaiAndRute(List_Maskapai LM, List_Rute LR, adr_Maskapai P, adr_Rute Q){
+    P = LM.first;
+    Q = LR.first;
+    string x;
+    while(Q != NULL){
+        Q ->infoRute.kode_penerbangan = x;
+         while(P != NULL){
+            adr_relasi r = P -> pRelasi;
+            while(r != NULL){
+                if(r ->child == Q){
+                    cout << x << " ";
+                }
+                r = r ->next;
+            }
+            P = P -> next;
+        }
+        Q = Q -> next;
+    }
+}
+void showAllDataRelasi(List_Maskapai LM, adr_Rute P) {
     adr_Maskapai m = LM.first;
-    while(m != NULL){
-        cout << "Maskapai Penerbangan: " << endl;
-        cout << "Nama Maskapai: " << m->infoMaskapai.namaMaskapai << endl;
-        cout << "Kode Maskapai: " << m->infoMaskapai.kodeMaskapai << endl;
-        cout << "Jenis Kelas Maskapai: " << m->infoMaskapai.kelasMaskapai << endl;
-        cout << "Kapasitas Penumpang: " <<  m->infoMaskapai.kapasitasPenumpang << endl;
+    bool foundRelasi = false;
+
+    while (m != NULL) {
+        adr_relasi r = m->pRelasi;
+        while (r != NULL) {
+            if (r->child == P) {
+               
+                cout << "Maskapai: " << m->infoMaskapai.namaMaskapai << endl;
+                cout << "Kode Maskapai: " << m->infoMaskapai.kodeMaskapai << endl;
+                cout << "Kelas Maskapai: " << m->infoMaskapai.kelasMaskapai << endl;
+                cout << "Kapasitas Penumpang: " << m->infoMaskapai.kapasitasPenumpang << endl;
+                
+                cout << "Rute Penerbangan: " << endl;
+                cout << "Kota Asal: " << P->infoRute.kota_asal << endl;
+                cout << "Kota Tujuan: " << P->infoRute.kota_tujuan << endl;
+                cout << "Kode Penerbangan: " << P->infoRute.kode_penerbangan << endl;
+                cout << "Jumlah Penumpang: " << P->infoRute.jumlah_penumpang << endl;
+                
+                foundRelasi = true;
+            }
+            r = r->next;
+        }
         m = m->next;
     }
-    cout << "Rute Penerbangan: " << endl;
-    showRute(LR);
 }
 
 void countRelationMaskapai(List_Maskapai LM, adr_Maskapai P) {
@@ -282,9 +315,9 @@ int count_RuteDontHaveRelasi(List_Maskapai LM, List_Rute LR){
     adr_Rute p = LR.first;
     while(p != NULL){
         bool relasi = false;
-        adr_Masakapai m = LM.first;
+        adr_Maskapai m = LM.first;
         while(m != NULL){
-            adr_relasi r = pRelasi;
+            adr_relasi r = m ->pRelasi;
             while(r != NULL){
                 if(r->child == p){
                     relasi = true;
@@ -304,11 +337,11 @@ void edit_RuteFromMaskapai(List_Maskapai LM, List_Rute LR, string kodeMaskapai, 
     adr_Maskapai m;
     adr_Rute p;
     cin >> kodeMaskapai;
-    m = findMaskpai(LM, kodeMaskapai);
+    m = findMaskapai(LM, kodeMaskapai);
     adr_relasi r = m->pRelasi;
     while(r != NULL){
         cin >> kodeRute;
-        p = find_Rute(LR, kodeRute);
+        p = findRute(LR, kodeRute);
             cout << "Masukkan rute baru: " << endl;
             cout << "Kota asal: ";
             cin >> r->child->infoRute.kota_asal;
@@ -322,5 +355,3 @@ void edit_RuteFromMaskapai(List_Maskapai LM, List_Rute LR, string kodeMaskapai, 
     }
     cout << endl;
 }
-
-   
