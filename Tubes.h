@@ -1,29 +1,10 @@
-#ifndef Header_h
-#define Header_h
-
+#ifndef MLL2_H_INCLUDED
+#define MLL2_H_INCLUDED
 #include <iostream>
+
 using namespace std;
 
-typedef struct elm_Maskapai *adr_Maskapai;
-typedef struct elm_Rute *adr_Rute;
-typedef struct elm_Relation* adr_relasi;
-
-struct elm_Maskapai{
-    infotypeMaskapai infoMaskapai;
-    adr_relasi pRelasi;
-    adr_Maskapai next;
-    adr_Maskapai prev;
-};
-struct elm_Rute {
-    infotypeRute infoRute;
-    adr_Rute next;
-};
-struct elm_Relation {
-    adr_Rute child;
-    adr_relasi next;
-};
-
-struct infoMaskapai{
+struct Maskapai{
     string namaMaskapai;
     string kodeMaskapai;
     string kelasMaskapai;
@@ -37,6 +18,28 @@ struct rutePenerbangan {
 
 };
 
+typedef Maskapai infotypeMaskapai;
+typedef rutePenerbangan infotypeRute;
+
+typedef struct elm_Maskapai *adr_Maskapai;
+typedef struct elm_Rute *adr_Rute;
+typedef struct elm_Relation* adr_Relasi;
+
+struct elm_Maskapai{
+    infotypeMaskapai infoMaskapai;
+    adr_Maskapai next;
+    adr_Maskapai prev;
+};
+struct elm_Rute {
+    infotypeRute infoRute;
+    adr_Rute next;
+};
+struct elm_Relation {
+    adr_Relasi next;
+    adr_Maskapai parent;
+    adr_Rute child;
+};
+
 struct List_Maskapai{
     adr_Maskapai first;
     adr_Maskapai last;
@@ -44,35 +47,33 @@ struct List_Maskapai{
 struct List_Rute{
     adr_Rute first;
 };
-typedef infoMaskapai infotypeMaskapai;
-typedef rutePenerbangan infotypeRute;
+struct List_Relasi{
+    adr_Relasi first;
+};
 
-void createListMaskapai(List_Maskapai &Lm);
+void createListMaskapai(List_Maskapai &LM);
 void createListRute(List_Rute &LR);
-adr_Maskapai createElmMaskapai(infotypeMaskapai x);
+void createListRelasi(List_Relasi &RL);
+adr_Maskapai newElmMaskapai(infotypeMaskapai x);
 adr_Rute newElementRute(infotypeRute x);
-adr_relasi createElmRelation(adr_Maskapai parent, adr_Rute child);
-void insertMaskapai(List_Maskapai &Lm, adr_Maskapai P);
-void insertRute(List_Rute &LR, adr_Rute p);
-void insertRelation(adr_Maskapai P, adr_Rute child);
-void deleteMaskapai(List_Maskapai &Lm, adr_Maskapai &P);
-void delete_First(List_Rute &LR, adr_Rute p);
-void delete_After(List_Rute &LR, adr_Rute prec, adr_Rute p);
-void delete_Last(List_Rute &LR, adr_Rute p);
-void deleteRute(List_Rute &LR, adr_Rute p);
-void deleteRelation( adr_Maskapai P, adr_Rute child);
-adr_Maskapai findMaskapai(List_Maskapai Lm, string kode);
-adr_Rute findRute(List_Rute LR, string x);
-adr_relasi findRelation(adr_Maskapai P, adr_Rute child);
-void showMaskapai(List_Maskapai Lm);
-void showRute(List_Rute LR);
-void show_RutefromMaskapai(adr_Maskapai p, List_Maskapai Lm);
-void show_MaskapaifromRute(List_Maskapai Lm, adr_Maskapai P);
-void show_MaskapaiAndRute(List_Maskapai LM, List_Rute LR);
-void showAllDataRelasi(List_Maskapai LM, adr_Rute P);
-void countRelationMaskapai(List_Maskapai LM, adr_Maskapai P);
-void countRelationRute(List_Maskapai LM, adr_Rute P);
-int count_RuteDontHaveRelasi(List_Maskapai LM, List_Rute LR);
-void edit_RuteFromMaskapai(List_Maskapai LM, List_Rute LR, string kodeMaskapai, string kodeRute);
-
-#endif /* Header_h */
+adr_Relasi newElmRelation();
+void insert_Maskapai(List_Maskapai &LM, adr_Maskapai m);
+void insert_RutePenerbangan(List_Rute &LR, adr_Rute p);
+void insert_Relasi(List_Relasi &RL, adr_Relasi r);
+void delete_Maskapai(List_Maskapai &LM, adr_Maskapai m);
+void delete_Rute(List_Rute &LR, adr_Rute p);
+void delete_Relation(List_Relasi &RL, adr_Relasi r);
+adr_Maskapai find_Maskapai(List_Maskapai LM, string kode);
+adr_Rute find_Rute(List_Rute LR, string kode);
+adr_Relasi find_Relation(List_Relasi RL, adr_Maskapai m, adr_Rute p);
+void show_DataMaskapai(List_Maskapai LM);
+void show_DataRute(List_Rute LR);
+void show_RuteFromMaskapai(List_Relasi RL, adr_Maskapai m);
+void show_MaskapaiFromRute(List_Relasi RL, adr_Rute p);
+void showAll_RelasiMaskapai(List_Maskapai LM, List_Relasi RL);
+void showAll_RelasiRute(List_Rute LR, List_Relasi RL);
+int count_RelasiMaskapai(List_Relasi RL, adr_Maskapai m);
+int count_RelasiRute(List_Relasi RL, adr_Rute p);
+int count_RuteDontHaveRelasi(List_Relasi RL, List_Rute LR);
+void edit_RuteFromMaskapaiTertentu(List_Relasi &RL, adr_Maskapai m, adr_Rute p, adr_Rute Q);
+#endif // MLL2_H_INCLUDED
